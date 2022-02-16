@@ -23,7 +23,8 @@ public class Home extends BaseTest {
 
     @Test
     public void homePage_002() {
-        homePage.verifyTextSupportDisplayed();
+        homePage.verifyTextSupportDisplayed().verifyAndroidIconDisplayed().verifyIosIconDisplayed();
     }
+
 
 }

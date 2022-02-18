@@ -19,9 +19,14 @@ public class FormsPage extends CommonMethods {
     private final By switchOnOffBtnSel = MobileBy.AccessibilityId("switch");
     private final By switchTextSel = MobileBy.AccessibilityId("switch-text");
     private final By dropdownBtnSel = MobileBy.xpath("//*[@resource-id='icon_container']");
-    private final By dropdownPopupSel = MobileBy.xpath("//*[@resource-id='com.wdiodemoapp:id/select_dialog_listview']");
     private final By dropdownListSel = MobileBy.xpath("//*[@text='Select an item...']/following-sibling::android.widget.CheckedTextView");
+    private final By firstValueInDropdownListSel = MobileBy.xpath("//*[@text='Select an item...']/following-sibling::android.widget.CheckedTextView");
     private final By selectedDropdownValueSel = MobileBy.xpath("//*[@resource-id='icon_container']/preceding-sibling::android.widget.EditText");
+    private final By activeBtnSel = MobileBy.AccessibilityId("button-Active");
+    private final By activeSuccessPopupMsgSel = MobileBy.xpath("//*[@text='This button is active']");
+    private final By activeSuccessPopupOKBtnSel = MobileBy.xpath("//*[@text='OK']");
+    private final By activeSuccessPopupCancelBtnSel = MobileBy.xpath("//*[@text='CANCEL']");
+    private final By activeSuccessPopupAskMeLaterBtnSel = MobileBy.xpath("//*[@text='ASK ME LATER']");
 
 
     public FormsPage(AppiumDriver<MobileElement> driver) {
@@ -56,19 +61,43 @@ public class FormsPage extends CommonMethods {
         clickToElem(dropdownBtnSel);
         List<MobileElement> dropdownList = findElements(dropdownListSel);
         List<String> dropdownValues = new ArrayList<>();
+
+        //get all dropdown value and add to dropdownValues list
         for (MobileElement element : dropdownList) {
             dropdownValues.add(element.getText());
         }
-//        clickToElem(MobileBy.xpath("//*[@text='Select an item...']"));
+//        System.out.println(dropdownValues);
 
-        Select select = new Select(findElement(dropdownListSel));
-        select.selectByValue("Appium is awesome");
-//        System.out.println(select.getOptions());
-//        for (String dropdownValue : dropdownValues) {
-//            select.selectByValue(dropdownValue);
-//            Assert.assertEquals(getElementText(selectedDropdownValueSel), dropdownValue);
-//        }
+        //Close the dropdown list
+        clickToElem(firstValueInDropdownListSel);
 
+        String actualValue = null;
+        String expectedValue = null;
 
+        for (int i = 0; i < dropdownValues.size(); i++) {
+            clickToElem(dropdownBtnSel);
+            List<MobileElement> dropdownList1 = findElements(dropdownListSel);
+//            System.out.println("select item name = " + dropdownList1.get(i).getText());
+            dropdownList1.get(i).click();
+            actualValue = getElementText(selectedDropdownValueSel);
+//            System.out.println("actualValue = " + actualValue);
+            for (int j = i; j < dropdownValues.size(); j++) {
+                expectedValue = dropdownValues.get(j);
+//                System.out.println("expectedValue = " + dropdownValues.get(j));
+                Assert.assertEquals(actualValue, expectedValue);
+                if (actualValue.contains(expectedValue))
+                    break;
+            }
+        }
     }
+
+    public void clickOnActiveBtn(){
+        scrollToElement(activeBtnSel);
+        clickToElem(activeBtnSel);
+    }
+
+    public String getActiveSuccessPopupMsg(){
+        return getElementText(activeSuccessPopupMsgSel);
+    }
+
 }

@@ -3,10 +3,12 @@
 <suite name="Suite1" verbose="1" >
     <test name="Android" parallel="tests" thread-count="10">
         <parameter name="platformName" value="android"/>
-        <parameter name="udid" value="emulator-5556"/>
+        <parameter name="udid" value="emulator-5554"/>
         <parameter name="systemPort" value="6101"/>
         <classes>
-            <class name="test.Home" />
+<!--            <class name="test.Home" />-->
+<!--            <class name="test.Login" />-->
+            <class name="test.Forms" />
         </classes>
     </test>
 

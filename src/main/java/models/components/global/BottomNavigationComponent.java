@@ -4,8 +4,9 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
+import utils.CommonMethods;
 
-public class BottomNavigationComponent {
+public class BottomNavigationComponent extends CommonMethods {
     private final AppiumDriver<MobileElement> driver;
     private static final By homeLabelSel = MobileBy.AccessibilityId("Webview");
     private static final By webViewLabelSel = MobileBy.AccessibilityId("Webview");
@@ -15,6 +16,7 @@ public class BottomNavigationComponent {
     private static final By dragLabelSel = MobileBy.AccessibilityId("Drag");
 
     public BottomNavigationComponent(AppiumDriver<MobileElement> driver) {
+        super(driver);
         this.driver = driver;
     }
 

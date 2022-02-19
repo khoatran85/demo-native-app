@@ -5,7 +5,6 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import models.components.global.BottomNavigationComponent;
 import org.openqa.selenium.By;
-import test.BaseTest;
 import utils.CommonMethods;
 
 public class LoginPage extends CommonMethods {

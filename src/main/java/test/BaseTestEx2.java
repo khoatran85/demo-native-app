@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BaseTest {
+public class BaseTestEx2 {
     protected AppiumDriver<MobileElement> driver;
     private final List<DriverFactory> driverThreadPool = Collections.synchronizedList(new ArrayList<>());
     private ThreadLocal<DriverFactory> driverThread;

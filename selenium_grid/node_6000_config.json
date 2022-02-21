@@ -4,7 +4,7 @@
       "version": "10",
       "maxInstances": 1,
       "platform": "ANDROID",
-      "deviceName": "demo",
+      "deviceName": "goplay",
       "udid": "emulator-5554"
     }
   ],

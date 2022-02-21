@@ -1,11 +1,11 @@
 {
   "capabilities": [
     {
-      "version": "8.0.0",
+      "version": "10",
       "maxInstances": 1,
       "platform": "ANDROID",
-      "deviceName": "S7",
-      "udid": "ad0916036038aa9a4a"
+      "deviceName": "demo",
+      "udid": "emulator-5556"
     }
   ],
   "configuration": {

@@ -5,7 +5,6 @@ import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import models.components.global.BottomNavigationComponent;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import utils.CommonMethods;
 
@@ -92,7 +91,7 @@ public class FormsPage extends CommonMethods {
     }
 
     public void clickOnActiveBtn(){
-        scrollToElement(activeBtnSel);
+        swipeVerticallyToElement(activeBtnSel);
         clickToElem(activeBtnSel);
     }
 

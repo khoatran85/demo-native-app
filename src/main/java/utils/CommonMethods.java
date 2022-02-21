@@ -1,6 +1,7 @@
 package utils;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
@@ -50,11 +51,11 @@ public class CommonMethods {
     }
 
     public String getElementText(By by){
-        waitForElementDisplayed(by);
+//        waitForElementDisplayed(by);
         return findElement(by).getText();
     }
 
-    public void scrollToElement(By by){
+    public void swipeVerticallyToElement(By by){
         int width = driver.manage().window().getSize().getWidth();
         int height = driver.manage().window().getSize().getHeight();
         int xStartPoint = (width * 50) / 100;
@@ -74,8 +75,27 @@ public class CommonMethods {
     }
 
 
+    public void swipeHorizontally(){
+        int width = driver.manage().window().getSize().getWidth();
+        int height = driver.manage().window().getSize().getHeight();
+        int xStartPoint = (width * 70) / 100;
+        int xEndPoint = (width * 20) / 100;
+        int yStartPoint = (height * 70) / 100;
+        int yEndPoint = yStartPoint;
 
+        PointOption startPoint = new PointOption().withCoordinates(xStartPoint,yStartPoint);
+        PointOption endPoint = new PointOption().withCoordinates(xEndPoint,yEndPoint);
+        TouchAction action = new TouchAction(driver);
+        action.longPress(startPoint).moveTo(endPoint).release().perform();
 
+    }
 
+    public void sleepInSeconds(Long timeOut){
+        try {
+            Thread.sleep(timeOut*1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

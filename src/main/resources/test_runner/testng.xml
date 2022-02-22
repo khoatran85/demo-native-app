@@ -2,19 +2,20 @@
 
 <suite name="Suite1" parallel="tests" thread-count="10" >
 
-<!--    <test name="emulator" parallel="tests" thread-count="10">-->
-<!--        <parameter name="platformName" value="android"/>-->
-<!--        <parameter name="udid" value="emulator-5554"/>-->
-<!--        <parameter name="systemPort" value="6700"/>-->
-<!--        <classes>-->
-<!--&lt;!&ndash;            <class name="test.Home" />&ndash;&gt;-->
-<!--&lt;!&ndash;            <class name="test.Login" />&ndash;&gt;-->
-<!--&lt;!&ndash;            <class name="test.Forms" />&ndash;&gt;-->
-<!--&lt;!&ndash;            <class name="test.testA" />&ndash;&gt;-->
-<!--&lt;!&ndash;            <class name="test.testB" />&ndash;&gt;-->
+    <test name="emulator" parallel="tests" thread-count="10">
+        <parameter name="platformName" value="android"/>
+        <parameter name="udid" value="emulator-5554"/>
+        <parameter name="systemPort" value="6700"/>
+        <classes>
+<!--            <class name="test.Home" />-->
+<!--            <class name="test.Login" />-->
+<!--            <class name="test.Forms" />-->
+<!--            <class name="test.testA" />-->
+<!--            <class name="test.testB" />-->
 <!--            <class name="test.Swipe" />-->
-<!--        </classes>-->
-<!--    </test>-->
+            <class name="test.WebView" />
+        </classes>
+    </test>
 
 <!--    <test name="s7" parallel="tests" thread-count="10">-->
 <!--        <parameter name="platformName" value="android"/>-->
@@ -29,19 +30,19 @@
 <!--        </classes>-->
 <!--    </test>-->
 
-    <test name="s7" parallel="tests" thread-count="10">
-        <parameter name="platformName" value="android"/>
-        <parameter name="udid" value="ad0916036038aa9a4a"/>
-        <parameter name="systemPort" value="7700"/>
-        <classes>
-<!--            <class name="test.Home" />-->
-<!--            <class name="test.Login" />-->
-<!--            <class name="test.Forms" />-->
-            <!--                        <class name="test.testA" />-->
-<!--                        <class name="test.testB" />-->
-<!--            <class name="test.Swipe" />-->
-            <class name="test.WebView" />
-        </classes>
-    </test>
+<!--    <test name="s7" parallel="tests" thread-count="10">-->
+<!--        <parameter name="platformName" value="android"/>-->
+<!--        <parameter name="udid" value="ad0916036038aa9a4a"/>-->
+<!--        <parameter name="systemPort" value="7700"/>-->
+<!--        <classes>-->
+<!--&lt;!&ndash;            <class name="test.Home" />&ndash;&gt;-->
+<!--&lt;!&ndash;            <class name="test.Login" />&ndash;&gt;-->
+<!--&lt;!&ndash;            <class name="test.Forms" />&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <class name="test.testA" />&ndash;&gt;-->
+<!--&lt;!&ndash;                        <class name="test.testB" />&ndash;&gt;-->
+<!--&lt;!&ndash;            <class name="test.Swipe" />&ndash;&gt;-->
+<!--            <class name="test.WebView" />-->
+<!--        </classes>-->
+<!--    </test>-->
 
 </suite>

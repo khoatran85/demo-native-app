@@ -14,9 +14,7 @@ public class WebView extends BaseTest {
     }
     @Test(description = "make sure the menu text and hyperlink displayed correctly")
     public void webView(){
-        webViewPage.switchToWebView();
-        webViewPage.clickOnMenuBtn();
-        webViewPage.verifyMenuTextsAndLinksCorrect();
+        webViewPage.switchToWebView().clickOnMenuBtn().verifyMenuTextsAndLinksCorrect();
     }
 
 }

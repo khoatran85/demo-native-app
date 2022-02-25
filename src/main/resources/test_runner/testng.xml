@@ -1,47 +1,27 @@
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-
-<suite name="Suite1" parallel="tests" thread-count="10" >
-
-<!--    <test name="emulator" parallel="tests" thread-count="10">-->
-<!--        <parameter name="platformName" value="android"/>-->
-<!--        <parameter name="udid" value="emulator-5554"/>-->
-<!--        <parameter name="systemPort" value="6700"/>-->
-<!--        <classes>-->
-<!--&lt;!&ndash;            <class name="test.Home" />&ndash;&gt;-->
-<!--&lt;!&ndash;            <class name="test.Login" />&ndash;&gt;-->
-<!--&lt;!&ndash;            <class name="test.Forms" />&ndash;&gt;-->
-<!--&lt;!&ndash;            <class name="test.testA" />&ndash;&gt;-->
-<!--&lt;!&ndash;            <class name="test.testB" />&ndash;&gt;-->
-<!--            <class name="test.Swipe" />-->
-<!--        </classes>-->
-<!--    </test>-->
-
-<!--    <test name="s7" parallel="tests" thread-count="10">-->
-<!--        <parameter name="platformName" value="android"/>-->
-<!--        <parameter name="udid" value="emulator-5556"/>-->
-<!--        <parameter name="systemPort" value="7700"/>-->
-<!--        <classes>-->
-<!--            <class name="test.Home" />-->
-<!--            <class name="test.Login" />-->
-<!--&lt;!&ndash;            <class name="test.Forms" />&ndash;&gt;-->
-<!--            &lt;!&ndash;                        <class name="test.testA" />&ndash;&gt;-->
-<!--&lt;!&ndash;                        <class name="test.testB" />&ndash;&gt;-->
-<!--        </classes>-->
-<!--    </test>-->
-
-    <test name="s7" parallel="tests" thread-count="10">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite thread-count="10" name="Regression" parallel="tests">
+    <test thread-count="10" name="emulator-5556" parallel="tests">
+        <parameter name="platformVersion" value="15.0"/>
+        <parameter name="udid" value="emulator-5556"/>
         <parameter name="platformName" value="android"/>
-        <parameter name="udid" value="ad0916036038aa9a4a"/>
-        <parameter name="systemPort" value="7700"/>
+        <parameter name="systemPort" value="7192"/>
         <classes>
-<!--            <class name="test.Home" />-->
-<!--            <class name="test.Login" />-->
-<!--            <class name="test.Forms" />-->
-            <!--                        <class name="test.testA" />-->
-<!--                        <class name="test.testB" />-->
-<!--            <class name="test.Swipe" />-->
-            <class name="test.WebView" />
+            <class name="test.LoginCred"/>
+            <class name="test.Swipe"/>
+            <class name="test.WebView"/>
         </classes>
-    </test>
+    </test> <!-- emulator-5556 -->
+    <test thread-count="10" name="emulator-5554" parallel="tests">
+        <parameter name="platformVersion" value="15.0"/>
+        <parameter name="udid" value="emulator-5554"/>
+        <parameter name="platformName" value="android"/>
+        <parameter name="systemPort" value="6891"/>
+        <classes>
+            <class name="test.Forms"/>
+            <class name="test.Home"/>
+            <class name="test.Login"/>
+        </classes>
+    </test> <!-- emulator-5554 -->
+</suite> <!-- Regression -->
 
-</suite>

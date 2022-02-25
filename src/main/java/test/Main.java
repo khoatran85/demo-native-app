@@ -45,8 +45,8 @@ public class Main implements MobileCapabilityTypeEx {
         } catch (Exception e) {
             throw new IllegalArgumentException("[ERR] We don't support " + platformName);
         }
-        List<String> iPhoneDeviceList = Arrays.asList();
-        List<String> androidDeviceList = Arrays.asList("emulator-5554");
+        List<String> iPhoneDeviceList = Arrays.asList("iPhone 11", "iPhone 12");
+        List<String> androidDeviceList = Arrays.asList("emulator-5554", "emulator-5556");
         List<String> deviceList = platformName.equalsIgnoreCase("ios") ? iPhoneDeviceList : androidDeviceList;
 
         // Device test classes base on device list

@@ -28,6 +28,7 @@ public class WebViewPage extends CommonMethods {
 
     public WebViewPage switchToWebView() {
         Set<String> contextNames = driver.getContextHandles();
+        System.out.println(contextNames);
         for (String contextName : contextNames) {
             if (contextName.contains("WEBVIEW")) {
                 driver.context(contextName);
@@ -36,9 +37,10 @@ public class WebViewPage extends CommonMethods {
         return this;
     }
 
-    public void clickOnMenuBtn() {
+    public WebViewPage clickOnMenuBtn() {
         clickToElem(menuBtnSel);
         Assert.assertTrue(isElementDisplayed(logoSel));
+        return this;
     }
 
     public void verifyMenuTextsAndLinksCorrect() {
@@ -50,35 +52,41 @@ public class WebViewPage extends CommonMethods {
         menusWithLinks.put("Community", "/community/support");
         menusWithLinks.put("v7", "/versions");
 
-//        for (Map.Entry<String, String> entry : menusWithLinks.entrySet()) {
-//            System.out.println(entry.getKey() + " = " + entry.getValue());
-////            System.out.println(entry.getValue());
-//        }
-//        List<MobileElement> elements = findElements(menusTextSel);
-//
-//        for(MobileElement element : elements) {
-//            String menuName = element.getText();
-//            String menuLink = element.getAttribute("href");
-//            System.out.println(menuName + " = " + menuLink);
-//        }
+        List<MobileElement> elements = findElements(menusTextSel);
+        if(elements.isEmpty())
+            throw new RuntimeException("[ERR] Not found any menu");
 
-//        List<MobileElement> elements = findElements(menusTextSel);
-//        for (MobileElement element : elements) {
-//            String menuName = element.getText();
-//            String menuLink = element.getAttribute("href");
+        for (MobileElement element : elements) {
+            String menuName = element.getText();
+            String menuLink = element.getAttribute("href");
+            switch (menuName) {
+                case "Docs":
+                    Assert.assertTrue(menuLink.contains("/docs/gettingstarted"));
+                    break;
+                case "API":
+                    Assert.assertTrue(menuLink.contains("/docs/api"));
+                    break;
+                case "Blog":
+                    Assert.assertTrue(menuLink.contains("/blog"));
+                    break;
+                case "Contribute":
+                    Assert.assertTrue(menuLink.contains("/docs/contribute"));
+                    break;
+                case "Community":
+                    Assert.assertTrue(menuLink.contains("/community/support"));
+                    break;
+                case "v7":
+                    Assert.assertTrue(menuLink.contains("/versions"));
+                    break;
+                default:
+                    throw new RuntimeException("[ERR] Not found link");
+            }
+        }
+    }
 
-
-        switch (menuName){
-            case"Docs":
-                Assert.assertEquals
-
-}
-}
-
-
-public BottomNavigationComponent bottomNavigationComponent(){
-        return new BottomNavigationComponent(driver);
+        public BottomNavigationComponent bottomNavigationComponent () {
+            return new BottomNavigationComponent(driver);
         }
 
 
-        }
+    }

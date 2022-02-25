@@ -6,12 +6,9 @@ import io.appium.java_client.MobileElement;
 import models.components.global.BottomNavigationComponent;
 import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
 import utils.CommonMethods;
-
 import java.util.Arrays;
 
-import static com.sun.xml.internal.ws.streaming.XMLStreamReaderUtil.getElementText;
 
 public class SwipePage extends CommonMethods {
     private final AppiumDriver<MobileElement> driver;

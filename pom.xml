@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sdetpro</groupId>
-    <artifactId>maven-appium-k5</artifactId>
+    <artifactId>demo-native-app</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
         <aspectj.version>1.9.6</aspectj.version>

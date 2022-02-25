@@ -13,7 +13,6 @@ public class DriverFactory {
 
     public AppiumDriver<MobileElement> getDriver(String udid, String systemPort, String platformName, String platformVersion) {
         initDriver(udid, systemPort, platformName, platformVersion);
-        System.out.println("aaaaa");
         return driver;
     }
 
@@ -44,10 +43,15 @@ public class DriverFactory {
                 desiredCaps.setCapability(MobileCapabilityTypeEx.NO_RESET, true);
             }
 
-            URL remoteServer = new URL("http://localhost:4723/wd/hub");
-            String hub = System.getProperty("hub") != null ? System.getProperty("hub") : System.getenv("hub");
-            if(hub != null)
-                remoteServer = new URL(hub.concat(":4444/wd/hub"));
+            URL remoteServer = new URL("http://localhost:4444/wd/hub");
+//            String hub = System.getProperty("hub") != null ? System.getProperty("hub") : System.getenv("hub");
+//            System.out.println("hub =" + hub);
+//            if(hub != null){
+//                remoteServer = new URL("http://localhost:4444/wd/hub");}
+//            else {
+//                remoteServer = new URL("http://localhost:4723/wd/hub");
+//            }
+//            System.out.println("remoreServer = " + remoteServer);
             driver = new AndroidDriver<>(remoteServer, desiredCaps);
             driver.manage().timeouts().implicitlyWait(3L, TimeUnit.SECONDS);
 

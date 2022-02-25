@@ -2,21 +2,20 @@ package test;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import models.pages.HomePage;
 import models.pages.LoginPage;
 import org.testng.annotations.*;
 import test_flow.LoginFlow;
 import utils.DataObjectBuilder;
 
 public class Login extends BaseTest {
-//    AppiumDriver<MobileElement> driver;
+   private AppiumDriver<MobileElement> driver;
     LoginPage loginPage;
 
 
-
-
     @BeforeMethod
-    public void beforeMethod(){
-//        driver= getDriver();
+    public void beforeClass(){
+        driver = getDriver();
         loginPage = new LoginPage(driver);
     }
 

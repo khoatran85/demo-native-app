@@ -3,18 +3,17 @@ package test;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import models.pages.HomePage;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class Home extends BaseTest {
-//    AppiumDriver<MobileElement> driver;
+    private AppiumDriver<MobileElement> driver;
     HomePage homePage;
-
-
 
     @BeforeMethod
     public void beforeMethod(){
-//        driver= getDriver();
+        driver= getDriver();
         System.out.println(driver);
         homePage = new HomePage(driver);
     }

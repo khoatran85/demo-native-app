@@ -4,18 +4,17 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import models.pages.FormsPage;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class Forms extends BaseTest {
-//    AppiumDriver<MobileElement> driver;
+    private AppiumDriver<MobileElement> driver;
     FormsPage formsPage;
 
 
     @BeforeMethod
     public void beforeMethod(){
-//    driver = getDriver();
+        driver = getDriver();
     formsPage = new FormsPage(driver);
     formsPage.bottomNavigationComponent().clickOnFormLabel();
     }

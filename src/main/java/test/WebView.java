@@ -1,5 +1,6 @@
 package test;
 
+import Base.BaseTest;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import models.pages.WebViewPage;
@@ -9,12 +10,11 @@ import org.testng.annotations.Test;
 
 public class WebView extends BaseTest {
    private WebViewPage webViewPage;
-    AppiumDriver<MobileElement> driver;
 
 
-    @BeforeMethod
+    @BeforeClass
     public void beforeMethod(){
-        driver = getDriver();
+      driver = getDriver();
         webViewPage = new WebViewPage(driver);
         webViewPage.bottomNavigationComponent().clickOnWebViewLabel();
     }

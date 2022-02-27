@@ -8,7 +8,7 @@ import utils.CommonMethods;
 
 public class BottomNavigationComponent extends CommonMethods {
     private final AppiumDriver<MobileElement> driver;
-    private static final By homeLabelSel = MobileBy.AccessibilityId("Webview");
+    private static final By homeLabelSel = MobileBy.AccessibilityId("Home");
     private static final By webViewLabelSel = MobileBy.AccessibilityId("Webview");
     private static final By loginLabelSel = MobileBy.AccessibilityId("Login");
     private static final By formLabelSel = MobileBy.AccessibilityId("Forms");

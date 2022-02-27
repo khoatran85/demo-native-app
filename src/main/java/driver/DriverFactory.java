@@ -19,6 +19,7 @@ public class DriverFactory {
     private void initDriver(String udid, String systemPort, String platformName, String platformVersion) {
         try {
             PlatformType.valueOf(platformName.toLowerCase());
+            System.out.println("platform = " + platformName);
         } catch (Exception e){
             throw new IllegalArgumentException("We don't support " + platformName);
         }

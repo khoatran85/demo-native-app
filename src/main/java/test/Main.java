@@ -27,7 +27,7 @@ public class Main implements MobileCapabilityTypeEx {
         for (ClassPath.ClassInfo info : ClassPath.from(loader).getTopLevelClasses()) {
             String classInfoName = info.getName();
             boolean startWithTestDot = classInfoName.startsWith("test.");
-            boolean isBaseTestClass = classInfoName.equalsIgnoreCase("test.BaseTest");
+            boolean isBaseTestClass = classInfoName.equalsIgnoreCase("Base.BaseTest");
             boolean isMainClass = classInfoName.equalsIgnoreCase("test.Main");
 
             if(startWithTestDot && !isBaseTestClass && !isMainClass){

@@ -1,5 +1,6 @@
 package utils;
 
+import Base.BaseTest;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -11,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class CommonMethods {
+public class CommonMethods{
     private final AppiumDriver<MobileElement> driver;
 
     public CommonMethods(AppiumDriver<MobileElement> driver) {

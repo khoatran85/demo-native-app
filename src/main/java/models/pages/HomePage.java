@@ -3,6 +3,7 @@ package models.pages;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
+import models.components.global.BottomNavigationComponent;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import utils.CommonMethods;
@@ -42,4 +43,7 @@ public class HomePage extends CommonMethods {
         Assert.assertTrue(isElementDisplayed(iosIconSel));
     }
 
+    public BottomNavigationComponent bottomNavigationComponent(){
+        return new BottomNavigationComponent(driver);
+    }
 }

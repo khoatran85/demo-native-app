@@ -4,8 +4,8 @@
       "version": "10",
       "maxInstances": 1,
       "platform": "ANDROID",
-      "deviceName": "demo",
-      "udid": "emulator-5556"
+      "deviceName": "s8",
+      "udid": "ce11171beb27330301"
     }
   ],
   "configuration": {

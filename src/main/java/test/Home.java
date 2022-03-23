@@ -10,11 +10,11 @@ import org.testng.annotations.Test;
 
 public class Home extends BaseTest {
     HomePage homePage;
-//    AppiumDriver<MobileElement> driver;
+    private AppiumDriver driver;
 
     @BeforeClass
     public void beforeMethod(){
-//       driver = getDriver();
+       driver = getDriver();
        getDriver();
         homePage = new HomePage(driver);
     }
@@ -24,15 +24,13 @@ public class Home extends BaseTest {
     public void homePage_001() {
         homePage.bottomNavigationComponent().clickOnHomeLabel();
         homePage.verifyAppPurposeDisplayed();
-        System.out.println("driver tc1" + driver);
 
     }
 
     @Test
     public void homePage_002() {
 //        homePage.verifyTextSupportDisplayed().verifyAndroidIconDisplayed().verifyIosIconDisplayed();
-        homePage.verifyAndroidIconDisplayed().verifyIosIconDisplayed();
-        System.out.println("driver tc2" + driver);
+        homePage.verifyTextSupportDisplay();
     }
 
 

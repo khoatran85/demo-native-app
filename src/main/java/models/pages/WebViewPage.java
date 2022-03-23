@@ -6,6 +6,8 @@ import io.appium.java_client.MobileElement;
 import models.components.global.BottomNavigationComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import utils.CommonMethods;
 
@@ -28,7 +30,7 @@ public class WebViewPage extends CommonMethods {
 
     public WebViewPage switchToWebView() {
         Set<String> contextNames = driver.getContextHandles();
-        System.out.println(contextNames);
+//        System.out.println(contextNames);
         for (String contextName : contextNames) {
             if (contextName.contains("WEBVIEW")) {
                 driver.context(contextName);
@@ -38,22 +40,27 @@ public class WebViewPage extends CommonMethods {
     }
 
     public WebViewPage clickOnMenuBtn() {
+        String platformName = driver.getPlatformName();
+        System.out.println(platformName);
+        switchToWebView();
+        if (driver.getContext().contains("NATIVE")) {
+            switchToWebView();
+        }
         clickToElem(menuBtnSel);
-        Assert.assertTrue(isElementDisplayed(logoSel));
         return this;
     }
 
     public void verifyMenuTextsAndLinksCorrect() {
-        Map<String, String> menusWithLinks = new HashMap<>();
-        menusWithLinks.put("Docs", "/docs/gettingstarted");
-        menusWithLinks.put("API", "/docs/api");
-        menusWithLinks.put("Blog", "/blog");
-        menusWithLinks.put("Contribute", "/docs/contribute");
-        menusWithLinks.put("Community", "/community/support");
-        menusWithLinks.put("v7", "/versions");
+//        Map<String, String> menusWithLinks = new HashMap<>();
+//        menusWithLinks.put("Docs", "/docs/gettingstarted");
+//        menusWithLinks.put("API", "/docs/api");
+//        menusWithLinks.put("Blog", "/blog");
+//        menusWithLinks.put("Contribute", "/docs/contribute");
+//        menusWithLinks.put("Community", "/community/support");
+//        menusWithLinks.put("v7", "/versions");
 
         List<MobileElement> elements = findElements(menusTextSel);
-        if(elements.isEmpty())
+        if (elements.isEmpty())
             throw new RuntimeException("[ERR] Not found any menu");
 
         for (MobileElement element : elements) {
@@ -82,11 +89,15 @@ public class WebViewPage extends CommonMethods {
                     throw new RuntimeException("[ERR] Not found link");
             }
         }
-    }
-
-        public BottomNavigationComponent bottomNavigationComponent () {
-            return new BottomNavigationComponent(driver);
-        }
-
 
     }
+
+    public BottomNavigationComponent bottomNavigationComponent() {
+        return new BottomNavigationComponent(driver);
+    }
+
+
+    public void switchToNativeApp() {
+        driver.context("NATIVE_APP");
+    }
+}

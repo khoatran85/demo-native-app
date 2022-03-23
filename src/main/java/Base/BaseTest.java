@@ -1,154 +1,101 @@
 package Base;
 
-import driver.DriverFactory;
+import driver.MobileCapabilityTypeEx;
+import driver.PlatformType;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import io.qameta.allure.Allure;
-import org.apache.commons.exec.CommandLine;
-import org.apache.commons.exec.DefaultExecuteResultHandler;
-import org.apache.commons.exec.DefaultExecutor;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.testng.ITestResult;
-import org.testng.annotations.*;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
-import utils.CommonMethods;
+import org.testng.annotations.Parameters;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
-    protected static AppiumDriver<MobileElement> driver;
-    List<DriverFactory> driverThreadPool = Collections.synchronizedList(new ArrayList<>());
-    protected static ThreadLocal<DriverFactory> driverThread;
-    private String platformName;
-    private String udid;
-    private String systemPort;
-    private String platformVersion;
-//
-//    @BeforeSuite(alwaysRun = true)
-//    public void beforeSuite() throws IOException, InterruptedException {
-//        CommandLine command = new CommandLine("cmd");
-//        command.addArgument("java -jar /Users/dd/Selenium/selenium-server-standalone-2.53.1.jar -role hub http://127.0.0.1:4444/grid ");
-//        command.addArgument("appium -p 6000 --nodeconfig selenium_grid/node_6000_config.json --allow-insecure chromedriver_autodownload");
-//        command.addArgument("appium -p 7000 --nodeconfig selenium_grid/node_7000_config.json --allow-insecure chromedriver_autodownload");
-////        command.addArgument("\"java -cp \\\"selenium_grid\\\\selenium-server-standalone-3.141.59.jar;selenium_grid\\\\selenium-grid-custom-matcher-3.141.59.jar\\\" org.openqa.grid.selenium.GridLauncherV3 -role hub -hubConfig selenium_grid\\\\hubConfig.json  \"");
-////        Runtime.getRuntime().exec("\"java -cp \\\"selenium_grid\\\\selenium-server-standalone-3.141.59.jar;selenium_grid\\\\selenium-grid-custom-matcher-3.141.59.jar\\\" org.openqa.grid.selenium.GridLauncherV3 -role hub -hubConfig selenium_grid\\\\hubConfig.json  \"");
-////        Runtime.getRuntime().exec("appium -p 6000 --nodeconfig selenium_grid\\node_6000_config.json --allow-insecure chromedriver_autodownload");
-////        Runtime.getRuntime().exec("appium -p 7000 --nodeconfig selenium_grid\\node_7000_config.json --allow-insecure chromedriver_autodownload");
-//        Thread.sleep(5000);
-//
-//    }
 
-//@AfterSuite(alwaysRun = true)
-//    public void stopServer() {
-//        CommandLine command = new CommandLine("cmd");
-//        command.addArgument("/c");
-//        command.addArgument("Taskkill /F /IM node.exe");
-//
-////        try {
-////            DefaultExecuteResultHandler resultHandler = new DefaultExecuteResultHandler();
-////            DefaultExecutor executor = new DefaultExecutor();
-////            executor.setExitValue(1);
-////            executor.execute(command, resultHandler);
-////            Thread.sleep(5000);
-////
-////            System.out.println("------> Appium server stopped.");
-////        } catch (IOException e) {
-////            e.printStackTrace();
-////        } catch (InterruptedException e) {
-////            e.printStackTrace();
-////        }
-//
-//    }
+    protected static ThreadLocal<AppiumDriver> driver = new ThreadLocal<>();
+     String udid;
+     String systemPort;
+    protected String platformName;
+     String platformVersion;
+
+    public AppiumDriver getDriver() {
+//        if(driver.get() == null){
+//            initDriver(udid, systemPort, platformName, platformVersion);
+//        }
+//        if(driver.get() == null){
+//            throw new RuntimeException("[ERR] Can't establish a connection to test");
+//        }
+        return driver.get();
+    }
+
+    public void setDriver(AppiumDriver driver) {
+        this.driver.set(driver);
+    }
 
     @BeforeTest(alwaysRun = true, description = "Init all appium sessions")
     @Parameters({"udid", "systemPort", "platformName", "platformVersion"})
     public void beforeTest(String udid, String systemPort, String platformName, @Optional("platformVersion") String platformVersion) {
-        System.out.println("Before Test run");
         this.platformName = platformName;
         this.udid = udid;
         this.systemPort = systemPort;
         this.platformVersion = platformVersion;
-        driverThread = ThreadLocal.withInitial(() -> {
-            DriverFactory driverThread = new DriverFactory();
-            driverThreadPool.add(driverThread);
-            System.out.println("Before test = " + driverThread);
-            return driverThread;
-        });
-        System.out.println("Before test = " + driverThread);
-        System.out.println("driver threadpool = " + driverThreadPool);
-    }
-
-    @BeforeClass
-    public void beforeClass() {
-        System.out.println("Before Class = " + driverThread);
+        initDriver(udid, systemPort, platformName, platformVersion);
     }
 
     @AfterTest(alwaysRun = true)
-    public void afterTest() {
-        driverThread.get().quitDriver();
+    public void afterTest(){
+        getDriver().quit();
     }
 
-    public AppiumDriver<MobileElement> getDriver() {
-        System.out.println("driver threadpool in getdriver = " + driverThreadPool);
-
-        if (driver == null) {
-            System.out.println("get driver = " + driverThread);
-            driver = driverThread.get().getDriver(udid, systemPort, platformName, platformVersion);
+    private void initDriver(String udid, String systemPort, String platformName, String platformVersion) {
+        try {
+            PlatformType.valueOf(platformName.toLowerCase());
+            System.out.println("platform = " + platformName);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("We don't support " + platformName);
         }
-        if (driver == null) {
-            throw new RuntimeException("[ERR] Can't establish a connection to test");
-        }
-        return driver;
-    }
-//
-//    @BeforeClass
-//    public void beforeClass() {
-//       getDriver();
-//    }
+        boolean isAndroid = platformName.equalsIgnoreCase("android");
+        System.out.println("platform = " + isAndroid);
+        try {
+            // Specify capabilities
+            DesiredCapabilities desiredCaps = new DesiredCapabilities();
+            desiredCaps.setCapability(MobileCapabilityTypeEx.PLATFORM_NAME, platformName);
 
-    @AfterMethod(description = "Capture Screenshot on failure")
-    public void afterMethod(ITestResult result) {
-        if (result.getStatus() == ITestResult.FAILURE) {
+            if (isAndroid) {
+                desiredCaps.setCapability(MobileCapabilityTypeEx.AUTOMATION_NAME, "uiautomator2");
+                desiredCaps.setCapability(MobileCapabilityTypeEx.UDID, udid);
+                desiredCaps.setCapability(MobileCapabilityTypeEx.SYSTEM_PORT, Integer.parseInt(systemPort));
+                desiredCaps.setCapability(MobileCapabilityTypeEx.APP_PACKAGE, "com.wdiodemoapp");
+                desiredCaps.setCapability(MobileCapabilityTypeEx.APP_ACTIVITY, "com.wdiodemoapp.MainActivity");
+                desiredCaps.setCapability("chromedriverExecutable", "src/main/resources/browser_driver/chromedriver");
+            } else {
+                desiredCaps.setCapability(MobileCapabilityTypeEx.AUTOMATION_NAME, "XCUITest");
+                desiredCaps.setCapability(MobileCapabilityTypeEx.WDA_LOCAL_PORT, Integer.parseInt(systemPort));
+                desiredCaps.setCapability(MobileCapabilityTypeEx.DEVICE_NAME, udid);
+                desiredCaps.setCapability(MobileCapabilityTypeEx.PLATFORM_VERSION, platformVersion);
+                desiredCaps.setCapability(MobileCapabilityTypeEx.BUNDLE_ID, "org.wdioNativeDemoApp");
+                desiredCaps.setCapability(MobileCapabilityTypeEx.NO_RESET, false);
+                desiredCaps.setCapability("chromedriverExecutable", "src/main/resources/browser_driver/chromedriver");
 
-            // 1. Get the test method name
-            String testMethodName = result.getName();
-
-            // 2. Get taken time
-            Calendar calendar = new GregorianCalendar();
-            int y = calendar.get(Calendar.YEAR);
-            int m = calendar.get(Calendar.MONTH) + 1;
-            int d = calendar.get(Calendar.DATE);
-            int hr = calendar.get(Calendar.HOUR_OF_DAY);
-            int min = calendar.get(Calendar.MINUTE);
-            int sec = calendar.get(Calendar.SECOND);
-            String dateTaken = y + "-" + m + "-" + d + "-" + hr + "-" + min + "-" + sec;
-
-            // 3. Location to save
-            String fileLocation =
-                    System.getProperty("user.dir") + "/screenshots/" + testMethodName + "_" + dateTaken + ".png";
-
-            // 4. save
-            File screenShot = driverThread.get().getDriver().getScreenshotAs(OutputType.FILE);
-
-            try {
-                FileUtils.copyFile(screenShot, new File(fileLocation));
-
-                // Get file content as InputStream to attach to allure
-                Path content = Paths.get(fileLocation);
-                InputStream inputStream = Files.newInputStream(content);
-                Allure.addAttachment(testMethodName, inputStream);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+
+            URL remoteServer = new URL("http://localhost:4444/wd/hub");
+//            String hub = System.getProperty("hub") != null ? System.getProperty("hub") : System.getenv("hub");
+//            System.out.println("hub =" + hub);
+//            if(hub != null){
+//                remoteServer = new URL("http://localhost:4444/wd/hub");}
+//            else {
+//                remoteServer = new URL("http://localhost:4723/wd/hub");
+//            }
+//            System.out.println("remoreServer = " + remoteServer);
+            setDriver(new AppiumDriver(remoteServer, desiredCaps));
+            getDriver().manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
-
 }
+

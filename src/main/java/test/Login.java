@@ -10,12 +10,11 @@ import utils.DataObjectBuilder;
 
 public class Login extends BaseTest {
     LoginPage loginPage;
-//    AppiumDriver<MobileElement> driver;
+    private AppiumDriver driver;
 
     @BeforeClass
     public void beforeClass() {
-//        driver = getDriver();
-        getDriver();
+        driver = getDriver();
         loginPage = new LoginPage(driver);
     }
 

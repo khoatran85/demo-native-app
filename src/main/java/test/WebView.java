@@ -9,8 +9,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class WebView extends BaseTest {
-   private WebViewPage webViewPage;
-
+    WebViewPage webViewPage;
+    protected AppiumDriver driver;
 
     @BeforeClass
     public void beforeMethod(){
@@ -20,7 +20,9 @@ public class WebView extends BaseTest {
     }
     @Test(description = "make sure the menu text and hyperlink displayed correctly")
     public void webView(){
-        webViewPage.switchToWebView().clickOnMenuBtn().verifyMenuTextsAndLinksCorrect();
+//        webViewPage.switchToWebView().clickOnMenuBtn().verifyMenuTextsAndLinksCorrect();
+        webViewPage.clickOnMenuBtn().verifyMenuTextsAndLinksCorrect();
+        webViewPage.switchToNativeApp();
     }
 
 }

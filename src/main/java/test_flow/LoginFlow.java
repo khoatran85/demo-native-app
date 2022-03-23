@@ -5,14 +5,17 @@ import io.appium.java_client.MobileElement;
 import models.pages.LoginPage;
 import org.testng.Assert;
 import test.LoginCred;
+import utils.CommonMethods;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LoginFlow  {
+public class LoginFlow extends CommonMethods {
     private final AppiumDriver<MobileElement> driver;
     LoginCred loginData;
 
     public LoginFlow(AppiumDriver<MobileElement> driver, LoginCred loginData) {
+        super(driver);
         this.driver = driver;
         this.loginData = loginData;
     }
@@ -25,13 +28,13 @@ public class LoginFlow  {
     }
 
     public void verifyLogin() {
-        if(!isEmailValid(loginData.getEmail()))
+        if (!isEmailValid(loginData.getEmail()))
             verifyEmailWarningMsgDisplayed();
 
-        if(!isPasswordvalid(loginData.getPassword()))
+        if (!isPasswordvalid(loginData.getPassword()))
             verifyPasswordWarningMsgDisplayed();
 
-        if(isEmailValid(loginData.getEmail()) && isPasswordvalid(loginData.getPassword()))
+        if (isEmailValid(loginData.getEmail()) && isPasswordvalid(loginData.getPassword()))
             verifyLoginSuccess();
 
     }
@@ -39,7 +42,14 @@ public class LoginFlow  {
     private void verifyLoginSuccess() {
         LoginPage loginPage = new LoginPage(driver);
         Assert.assertTrue(loginPage.isLoginSuccessPopupTitleDisplayed() && loginPage.isLoginSuccessPopupMsgDisplayed());
+        sleepInSeconds(1L);
         loginPage.clickOnLoginSuccessOKButton();
+        //close the virtual keyboard
+        if (driver.getPlatformName().equalsIgnoreCase("ios")) {
+            sleepInSeconds(2L);
+            driver.hideKeyboard();
+            sleepInSeconds(1L);
+        }
     }
 
     private void verifyPasswordWarningMsgDisplayed() {

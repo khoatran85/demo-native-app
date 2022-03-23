@@ -2,21 +2,18 @@ package test;
 
 import Base.BaseTest;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import models.pages.FormsPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class Forms extends BaseTest {
     FormsPage formsPage;
-//    AppiumDriver<MobileElement> driver;
+    private AppiumDriver driver;
 
     @BeforeClass
     public void beforeMethod(){
-//       driver = getDriver();
-        getDriver();
+       driver = getDriver();
     formsPage = new FormsPage(driver);
     formsPage.bottomNavigationComponent().clickOnFormLabel();
     }
@@ -42,11 +39,14 @@ public class Forms extends BaseTest {
         formsPage.verifyDropdownSelection();
     }
 
-//    @Test(description = "Active/inavtive button works properly")
+    @Test(description = "Active/inavtive button works properly")
     public void form_005(){
         //Verify Active button works properly
         formsPage.clickOnActiveBtn();
         Assert.assertEquals(formsPage.getActiveSuccessPopupMsg(), "This button is active");
+
+        //close the popup
+        formsPage.clickOnActiveSuccessPopupOKBtn();
 
         //Verify inactive button is unable to be clicked on.
 

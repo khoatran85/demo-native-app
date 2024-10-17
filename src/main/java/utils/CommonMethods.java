@@ -6,6 +6,8 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -42,6 +44,20 @@ public class CommonMethods {
         findElement(by).clear();
         findElement(by).sendKeys(value);
     }
+//    public void sendKeyboardToTextBox() {
+////        waitForElementDisplayed(by);
+////        findElement(by).clear();
+//        driver.pressKeyCode(66);
+//
+//    }
+
+
+
+    public void clịckByJS(By by) {
+//        waitForElementDisplayed(by);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", findElement(by));
+    }
 
     public void clickToElem(By by) {
         waitForElementIsClickable(by);
@@ -49,12 +65,12 @@ public class CommonMethods {
     }
 
     public void waitForElementDisplayed(By by) {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     public void waitForElementIsClickable(By by) {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.elementToBeClickable(by));
     }
 
@@ -114,6 +130,20 @@ public class CommonMethods {
             int height = driver.manage().window().getSize().getHeight();
             int xStartPoint = (width * 50) / 100;
             int yStartPoint = xStartPoint;
+            PointOption touchPoint = new PointOption().withCoordinates(xStartPoint, yStartPoint);
+            TouchAction action = new TouchAction(driver);
+            action.press(touchPoint).release().perform();
+        }
+
+    }
+
+    public void clickOnPruductList() {
+        String platformName = driver.getPlatformName();
+        if (platformName.equalsIgnoreCase("android")) {
+            int width = driver.manage().window().getSize().getWidth();
+            int height = driver.manage().window().getSize().getHeight();
+            int xStartPoint = (width * 20) / 100;
+            int yStartPoint = (height * 10) / 100;
             PointOption touchPoint = new PointOption().withCoordinates(xStartPoint, yStartPoint);
             TouchAction action = new TouchAction(driver);
             action.press(touchPoint).release().perform();

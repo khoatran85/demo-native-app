@@ -63,9 +63,9 @@ public class LoginPage extends CommonMethods {
         return new BottomNavigationComponent(driver);
     }
 
-    public boolean isEmailWarningMsgDisplayed() {
-        return emailWarningMsgSel.isDisplayed();
-    }
+//    public boolean isEmailWarningMsgDisplayed() {
+//        return emailWarningMsgSel.isDisplayed();
+//    }
 
     public boolean isPasswordWarningMsgDisplayed() {
         return passwordWarningMsgSel.isDisplayed();

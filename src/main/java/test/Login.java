@@ -2,15 +2,24 @@ package test;
 
 import Base.BaseTest;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
+import io.appium.java_client.MobileBy;
 import models.pages.LoginPage;
+import org.openqa.selenium.By;
 import org.testng.annotations.*;
-import test_flow.LoginFlow;
-import utils.DataObjectBuilder;
+
 
 public class Login extends BaseTest {
     LoginPage loginPage;
     private AppiumDriver driver;
+    private final By userName = MobileBy.xpath("//android.widget.EditText[@text='Mã nhân viên / Email']");
+    private final By password = MobileBy.xpath("//android.widget.EditText[@text='Mật khẩu']");
+    private final By loginBtn = MobileBy.xpath("//android.widget.Button[@content-desc='ĐĂNG NHẬP']");
+
+       private final By newBillBtn = MobileBy.xpath("//android.view.View[@content-desc='Môi trường DEVELOPMENT']/following-sibling:: android.view.View/android.widget.Button[1]");
+    private final By searchBox = MobileBy.xpath("(//android.view.View[@content-desc='Môi trường DEVELOPMENT']/following-sibling:: android.view.View//android.widget.EditText)[1]");
+    private final By cashBtn = MobileBy.xpath("//android.widget.RadioButton");
+    private final By payBtn = MobileBy.xpath("//android.widget.Button[@content-desc='Thanh toán (F9)']");
+    private final By productLineGiftBtn = MobileBy.xpath("//android.widget.Button[@content-desc='Thanh toán (F9)']");
 
     @BeforeClass
     public void beforeClass() {
@@ -19,19 +28,35 @@ public class Login extends BaseTest {
     }
 
 
-    @Test(dataProvider = "loginData")
-    public void login(LoginCred loginData) {
+    @Test
+    public void login() {
+        loginPage.clickToElem(userName);
+        loginPage.sendKeyToTextBox(userName, "KF001273");
+        loginPage.clickToElem(password);
+        loginPage.sendKeyToTextBox(password, "123456");
+        loginPage.clickToElem(loginBtn);
 
-        //Make sure "missing email and password" displayed
-        LoginFlow loginFlow = new LoginFlow(driver, loginData);
-        loginFlow.login().verifyLogin();
+        loginPage.waitForElementDisplayed(newBillBtn);
+        loginPage.clickToElem(newBillBtn);
+
+        loginPage.clickToElem(searchBox);
+        loginPage.sendKeyToTextBox(searchBox, "QAZ103 ");
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        //Chọn sp ở trn
+        loginPage.clickOnPruductList();
+
+        loginPage.clickToElem(cashBtn);
+
+        loginPage.clickToElem(payBtn);
+
+
     }
 
-    @DataProvider
-    public LoginCred[] loginData() {
-        String filePath = "/src/main/resources/test_data/LoginCred.json";
-        return DataObjectBuilder.buildJsonDataObject(filePath, LoginCred[].class);
-    }
 
 
 }

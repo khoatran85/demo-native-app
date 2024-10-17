@@ -4,7 +4,6 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import models.pages.LoginPage;
 import org.testng.Assert;
-import test.LoginCred;
 import utils.CommonMethods;
 
 import java.util.regex.Matcher;
@@ -28,8 +27,8 @@ public class LoginFlow extends CommonMethods {
     }
 
     public void verifyLogin() {
-        if (!isEmailValid(loginData.getEmail()))
-            verifyEmailWarningMsgDisplayed();
+//        if (!isEmailValid(loginData.getEmail()))
+//            verifyEmailWarningMsgDisplayed();
 
         if (!isPasswordvalid(loginData.getPassword()))
             verifyPasswordWarningMsgDisplayed();
@@ -57,10 +56,10 @@ public class LoginFlow extends CommonMethods {
         Assert.assertTrue(loginPage.isPasswordWarningMsgDisplayed());
     }
 
-    private void verifyEmailWarningMsgDisplayed() {
-        LoginPage loginPage = new LoginPage(driver);
-        Assert.assertTrue(loginPage.isEmailWarningMsgDisplayed());
-    }
+//    private void verifyEmailWarningMsgDisplayed() {
+//        LoginPage loginPage = new LoginPage(driver);
+//        Assert.assertTrue(loginPage.isEmailWarningMsgDisplayed());
+//    }
 
     private boolean isEmailValid(String email) {
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";

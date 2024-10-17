@@ -44,7 +44,7 @@ public class BaseTest {
         initDriver(udid, systemPort, platformName, platformVersion);
     }
 
-    @AfterTest(alwaysRun = true)
+//    @AfterTest(alwaysRun = true)
     public void afterTest(){
         getDriver().quit();
     }
@@ -61,35 +61,15 @@ public class BaseTest {
         try {
             // Specify capabilities
             DesiredCapabilities desiredCaps = new DesiredCapabilities();
-            desiredCaps.setCapability(MobileCapabilityTypeEx.PLATFORM_NAME, platformName);
+            desiredCaps.setCapability(MobileCapabilityTypeEx.PLATFORM_NAME, "android");
+            desiredCaps.setCapability(MobileCapabilityTypeEx.AUTOMATION_NAME, "uiautomator2");
+            desiredCaps.setCapability(MobileCapabilityTypeEx.UDID, "emulator-5554");
+//                desiredCaps.setCapability(MobileCapabilityTypeEx.SYSTEM_PORT, Integer.parseInt(systemPort));
+            desiredCaps.setCapability(MobileCapabilityTypeEx.APP_PACKAGE, "kingfood.kpos.app.dev");
+            desiredCaps.setCapability(MobileCapabilityTypeEx.APP_ACTIVITY, "kingfood.co.kpos.MainActivity");
+            desiredCaps.setCapability("chromedriverExecutable", "src/main/resources/browser_driver/");
 
-            if (isAndroid) {
-                desiredCaps.setCapability(MobileCapabilityTypeEx.AUTOMATION_NAME, "uiautomator2");
-                desiredCaps.setCapability(MobileCapabilityTypeEx.UDID, udid);
-                desiredCaps.setCapability(MobileCapabilityTypeEx.SYSTEM_PORT, Integer.parseInt(systemPort));
-                desiredCaps.setCapability(MobileCapabilityTypeEx.APP_PACKAGE, "com.wdiodemoapp");
-                desiredCaps.setCapability(MobileCapabilityTypeEx.APP_ACTIVITY, "com.wdiodemoapp.MainActivity");
-                desiredCaps.setCapability("chromedriverExecutable", "src/main/resources/browser_driver/chromedriver");
-            } else {
-                desiredCaps.setCapability(MobileCapabilityTypeEx.AUTOMATION_NAME, "XCUITest");
-                desiredCaps.setCapability(MobileCapabilityTypeEx.WDA_LOCAL_PORT, Integer.parseInt(systemPort));
-                desiredCaps.setCapability(MobileCapabilityTypeEx.DEVICE_NAME, udid);
-                desiredCaps.setCapability(MobileCapabilityTypeEx.PLATFORM_VERSION, platformVersion);
-                desiredCaps.setCapability(MobileCapabilityTypeEx.BUNDLE_ID, "org.wdioNativeDemoApp");
-                desiredCaps.setCapability(MobileCapabilityTypeEx.NO_RESET, false);
-                desiredCaps.setCapability("chromedriverExecutable", "src/main/resources/browser_driver/chromedriver");
-
-            }
-
-            URL remoteServer = new URL("http://localhost:4444/wd/hub");
-//            String hub = System.getProperty("hub") != null ? System.getProperty("hub") : System.getenv("hub");
-//            System.out.println("hub =" + hub);
-//            if(hub != null){
-//                remoteServer = new URL("http://localhost:4444/wd/hub");}
-//            else {
-//                remoteServer = new URL("http://localhost:4723/wd/hub");
-//            }
-//            System.out.println("remoreServer = " + remoteServer);
+            URL remoteServer = new URL("http://localhost:4723/wd/hub");
             setDriver(new AppiumDriver(remoteServer, desiredCaps));
             getDriver().manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
 

@@ -18,33 +18,34 @@
     <!--        </classes>-->
     <!--    </test> &lt;!&ndash; emulator-5556 &ndash;&gt;-->
 
-<!--    <test thread-count="10" name="emulator-5554" parallel="tests">-->
-<!--        <parameter name="udid" value="emulator-5554"/>-->
+    <test thread-count="10" name="emulator-5554" parallel="tests">
+        <parameter name="udid" value="emulator-5554"/>
 <!--        <parameter name="systemPort" value="6891"/>-->
-<!--        <parameter name="platformName" value="android"/>-->
-<!--        <parameter name="platformVersion" value="12"/>-->
-<!--        <classes>-->
-<!--                        <class name="test.Login"/>-->
+        <parameter name="systemPort" value="5553"/>
+        <parameter name="platformName" value="android"/>
+        <parameter name="platformVersion" value="13"/>
+        <classes>
+                        <class name="test.Login"/>
 <!--                        <class name="test.Home"/>-->
 <!--                        <class name="test.WebView"/>-->
 <!--                        <class name="test.Forms"/>-->
 <!--            <class name="test.Swipe"/>-->
-<!--        </classes>-->
-<!--    </test> &lt;!&ndash; emulator-5554 &ndash;&gt;-->
-
-    <test thread-count="10" name="iphone 13" parallel="tests">
-        <parameter name="udid" value="iPhone 13"/>
-        <parameter name="systemPort" value="8311"/>
-        <parameter name="platformName" value="ios"/>
-        <parameter name="platformVersion" value="15.2"/>
-        <classes>
-<!--                        <class name="test.Home"/>-->
-<!--                        <class name="test.WebView"/>-->
-<!--                        <class name="test.Forms"/>-->
-                        <class name="test.Login"/>
-            <class name="test.Swipe"/>
-
         </classes>
     </test> <!-- emulator-5554 -->
+
+<!--    <test thread-count="10" name="iphone 13" parallel="tests">-->
+<!--        <parameter name="udid" value="iPhone 13"/>-->
+<!--        <parameter name="systemPort" value="8311"/>-->
+<!--        <parameter name="platformName" value="ios"/>-->
+<!--        <parameter name="platformVersion" value="15.2"/>-->
+<!--        <classes>-->
+<!--&lt;!&ndash;                        <class name="test.Home"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <class name="test.WebView"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <class name="test.Forms"/>&ndash;&gt;-->
+<!--                        <class name="test.Login"/>-->
+<!--            <class name="test.Swipe"/>-->
+
+<!--        </classes>-->
+<!--    </test> &lt;!&ndash; emulator-5554 &ndash;&gt;-->
 </suite> <!-- Regression -->
 
